@@ -8,12 +8,16 @@ export class AppService {
   score(): number {
     let fistBallInFrame = 0;
     for (let frame = 0; frame < 10; frame++) {
-      if (this.isSpare(fistBallInFrame)) {
+      if (this.rolls[fistBallInFrame] == 10) {
+        this.total += 10 + this.rolls[fistBallInFrame + 1] + this.rolls[fistBallInFrame + 2];
+        fistBallInFrame += 1;
+      } else if (this.isSpare(fistBallInFrame)) {
         this.total += 10 + this.rolls[fistBallInFrame + 2];
+        fistBallInFrame += 2;
       } else {
         this.total += this.addSpare(fistBallInFrame);
+        fistBallInFrame += 2;
       }
-      fistBallInFrame += 2;
     }
     return this.total;
   }

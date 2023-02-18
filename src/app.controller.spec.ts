@@ -7,7 +7,7 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [AppService]
     }).compile();
 
     appController = app.get<AppController>(AppController);
@@ -38,6 +38,14 @@ describe('AppController', () => {
       appController.roll(1);
       rollMany(17, 0);
       expect(appController.score()).toBe(12);
+    });
+
+    it('game with strike', () => {
+      appController.roll(10);
+      appController.roll(1);
+      appController.roll(1);
+      rollMany(16, 0);
+      expect(appController.score()).toBe(14);
     });
   });
 });
