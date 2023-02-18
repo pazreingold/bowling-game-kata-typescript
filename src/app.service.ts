@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  private currentScore = 0;
+  private rolls: number[] = [];
 
   score(): number {
-    return this.currentScore;
+    return this.rolls.reduce((a, b) => a + b);
   }
 
   roll(pins: number): void {
-    this.currentScore += pins;
+    this.rolls.push(pins);
   }
 }
