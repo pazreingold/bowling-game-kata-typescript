@@ -47,5 +47,10 @@ describe('AppController', () => {
       rollMany(16, 0);
       expect(appController.score()).toBe(14);
     });
+
+    it('perfect game', () => {
+      rollMany(21, 10);
+      expect(appController.score()).toBe(300);
+    });
   });
 });
