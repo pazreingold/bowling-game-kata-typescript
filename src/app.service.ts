@@ -8,14 +8,14 @@ export class AppService {
   score(): number {
     let fistBallInFrame = 0;
     for (let frame = 0; frame < 10; frame++) {
-      if (this.rolls[fistBallInFrame] == 10) {
-        this.total += 10 + this.rolls[fistBallInFrame + 1] + this.rolls[fistBallInFrame + 2];
+      if (this.isStrike(fistBallInFrame)) {
+        this.total += this.addStrike(fistBallInFrame);
         fistBallInFrame += 1;
       } else if (this.isSpare(fistBallInFrame)) {
-        this.total += 10 + this.rolls[fistBallInFrame + 2];
+        this.total += this.addSpare(fistBallInFrame);
         fistBallInFrame += 2;
       } else {
-        this.total += this.addSpare(fistBallInFrame);
+        this.total += this.addRegular(fistBallInFrame);
         fistBallInFrame += 2;
       }
     }
@@ -31,6 +31,18 @@ export class AppService {
   }
 
   private addSpare(fistBallInFrame: number): number {
+    return 10 + this.rolls[fistBallInFrame + 2];
+  }
+
+  private isStrike(fistBallInFrame: number) {
+    return this.rolls[fistBallInFrame] == 10;
+  }
+
+  private addStrike(fistBallInFrame: number): number {
+    return 10 + this.rolls[fistBallInFrame + 1] + this.rolls[fistBallInFrame + 2];
+  }
+
+  private addRegular(fistBallInFrame: number): number {
     return this.rolls[fistBallInFrame] + this.rolls[fistBallInFrame + 1];
   }
 }
