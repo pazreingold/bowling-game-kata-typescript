@@ -31,5 +31,13 @@ describe('AppController', () => {
       rollMany(20, 1);
       expect(appController.score()).toBe(20);
     });
+
+    it('game with spare', () => {
+      appController.roll(9);
+      appController.roll(1);
+      appController.roll(1);
+      rollMany(17, 0);
+      expect(appController.score()).toBe(12);
+    });
   });
 });
