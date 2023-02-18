@@ -8,11 +8,10 @@ export class AppService {
   score(): number {
     let fistBallInFrame = 0;
     for (let frame = 0; frame < 10; frame++) {
-      if (this.rolls[fistBallInFrame] + this.rolls[fistBallInFrame + 1] == 10) {
+      if (this.isSpare(fistBallInFrame)) {
         this.total += 10 + this.rolls[fistBallInFrame + 2];
       } else {
-        this.total +=
-          this.rolls[fistBallInFrame] + this.rolls[fistBallInFrame + 1];
+        this.total += this.addSpare(fistBallInFrame);
       }
       fistBallInFrame += 2;
     }
@@ -21,5 +20,13 @@ export class AppService {
 
   roll(pins: number): void {
     this.rolls.push(pins);
+  }
+
+  private isSpare(fistBallInFrame: number): boolean {
+    return this.rolls[fistBallInFrame] + this.rolls[fistBallInFrame + 1] == 10;
+  }
+
+  private addSpare(fistBallInFrame: number): number {
+    return this.rolls[fistBallInFrame] + this.rolls[fistBallInFrame + 1];
   }
 }
